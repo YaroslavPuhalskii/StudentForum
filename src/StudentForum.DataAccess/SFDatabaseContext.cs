@@ -9,7 +9,6 @@ namespace StudentForum.DataAccess
         public SFDatabaseContext(DbContextOptions<SFDatabaseContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
     }
 }

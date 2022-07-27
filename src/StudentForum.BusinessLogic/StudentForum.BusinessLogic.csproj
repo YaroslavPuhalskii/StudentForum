@@ -6,4 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StudentForum.Data.Entities\StudentForum.Data.Entities.csproj" />
+    <ProjectReference Include="..\StudentForum.DataAccess.Contracts\StudentForum.DataAccess.Contracts.csproj" />
+    <ProjectReference Include="..\StudentForum.DataAccess\StudentForum.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
