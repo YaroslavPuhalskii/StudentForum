@@ -21,6 +21,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "StudentForum.TestDatabase",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentForum.DataAccess", "src\StudentForum.DataAccess\StudentForum.DataAccess.csproj", "{D94CADCB-5D91-4E87-9B6D-4EB235796F0D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentForum.Data.Entities", "src\StudentForum.Data.Entities\StudentForum.Data.Entities.csproj", "{DA5A5C0F-8D93-4D7A-BC25-5F48B9072F2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentForum.DataAccess.Contracts", "src\StudentForum.DataAccess.Contracts\StudentForum.DataAccess.Contracts.csproj", "{98DEF695-5B03-4BEE-95A6-2E40A2DFA145}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{D94CADCB-5D91-4E87-9B6D-4EB235796F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D94CADCB-5D91-4E87-9B6D-4EB235796F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D94CADCB-5D91-4E87-9B6D-4EB235796F0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA5A5C0F-8D93-4D7A-BC25-5F48B9072F2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA5A5C0F-8D93-4D7A-BC25-5F48B9072F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA5A5C0F-8D93-4D7A-BC25-5F48B9072F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA5A5C0F-8D93-4D7A-BC25-5F48B9072F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DEF695-5B03-4BEE-95A6-2E40A2DFA145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DEF695-5B03-4BEE-95A6-2E40A2DFA145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DEF695-5B03-4BEE-95A6-2E40A2DFA145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DEF695-5B03-4BEE-95A6-2E40A2DFA145}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +83,8 @@ Global
 		{5C8751AF-EFBA-4D63-92C3-092471C6A9A8} = {02DE591A-9064-488A-A18A-CAB037C5645B}
 		{E4684479-3404-470C-A620-EA027B49D749} = {02DE591A-9064-488A-A18A-CAB037C5645B}
 		{D94CADCB-5D91-4E87-9B6D-4EB235796F0D} = {0ECBD6C8-37AF-4EC3-8588-EB04B85E8D30}
+		{DA5A5C0F-8D93-4D7A-BC25-5F48B9072F2D} = {0ECBD6C8-37AF-4EC3-8588-EB04B85E8D30}
+		{98DEF695-5B03-4BEE-95A6-2E40A2DFA145} = {0ECBD6C8-37AF-4EC3-8588-EB04B85E8D30}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {865EF7DB-1CD8-4CE9-8B9A-E8761D602B6B}
