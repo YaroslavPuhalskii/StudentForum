@@ -14,7 +14,7 @@ namespace StudentForum.WebUI.Models.Account
         [Required(ErrorMessage = "Last name is required!")]
         [Display(Name = "Last name")]
         [StringLength(50, ErrorMessage = "Last name length must be between 1 and 50 characters.",
-            MinimumLength = 6)]
+            MinimumLength = 1)]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Email is required!")]

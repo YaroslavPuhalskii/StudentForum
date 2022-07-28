@@ -22,4 +22,14 @@
     <ProjectReference Include="..\StudentForum.DataAccess\StudentForum.DataAccess.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>StudentForum.IntegrationTests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="StudentForum.IntegrationTests" />
+	</ItemGroup>
+	
 </Project>

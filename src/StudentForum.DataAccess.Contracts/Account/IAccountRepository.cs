@@ -11,12 +11,6 @@ namespace StudentForum.DataAccess.Contracts.Account
 
         Task SignOut();
 
-        Task<User> GetUserById(string id);
-
-        Task<IdentityResult> ChangePassword(User user, string currentPassword, string newPassword);
-
-        Task<IdentityResult> Update(User user);
-
         Task<IdentityRole> FindRoleByName(string name);
 
         Task<IdentityResult> AddToRole(User user, string role);

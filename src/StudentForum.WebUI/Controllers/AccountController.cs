@@ -71,14 +71,7 @@ namespace StudentForum.WebUI.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                if (result.IsNotAllowed)
-                {
-                    ModelState.AddModelError("", "Not allowed to login");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid credentials");
-                }
+                ModelState.AddModelError("", "Invalid credentials");
             }
 
             return View(model);

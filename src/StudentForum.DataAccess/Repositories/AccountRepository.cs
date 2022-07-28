@@ -38,21 +38,6 @@ namespace StudentForum.DataAccess.Repositories
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<User> GetUserById(string id)
-        {
-            return await _userManager.FindByIdAsync(id);
-        }
-
-        public async Task<IdentityResult> ChangePassword(User user, string currentPassword, string newPassword)
-        {
-            return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
-        }
-
-        public async Task<IdentityResult> Update(User user)
-        {
-            return await _userManager.UpdateAsync(user);
-        }
-
         public async Task<IdentityRole> FindRoleByName(string name)
         {
             return await _roleManager.FindByNameAsync(name);
