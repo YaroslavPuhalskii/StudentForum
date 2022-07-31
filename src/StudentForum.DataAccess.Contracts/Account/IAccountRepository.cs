@@ -18,5 +18,7 @@ namespace StudentForum.DataAccess.Contracts.Account
         Task<User> GetUserById(string id);
 
         Task<IdentityResult> Update(User user);
+
+        Task<IdentityResult> ChangePassword(User user, string currentPassword, string newPassword);
     }
 }

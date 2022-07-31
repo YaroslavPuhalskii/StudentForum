@@ -26,6 +26,7 @@ namespace StudentForum.IntegrationTests.ControllerTests
         [TestCase("update-photo")]
         [TestCase("Manage/Load")]
         [TestCase("Manage/Update")]
+        [TestCase("change-password")]
         public async Task GetEndpoints_TryToReturnContent_ThenShouldBeReturnedCorrectContentType(string url)
         {
             // Act
@@ -101,6 +102,49 @@ namespace StudentForum.IntegrationTests.ControllerTests
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Test]
+        public async Task GivenChangePassword_TryToChangeWithIncorrectData_ThenShouldBeOkStatusCode()
+        {
+            // Arrange
+            var httpContent = new MultipartFormDataContent
+            {
+                { new StringContent("Admin123@123"), "CurrentPassword" },
+                { new StringContent("Admin123@1"), "NewPassword" },
+                { new StringContent("Admin123@1"), "ConfirmNewPassword" },
+            };
+
+            // Act
+            var response = await _httpClient.PostAsync("change-password", httpContent);
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Test]
+        public async Task GivenChangePassword_TryToChange_ThenShouldBeOkStatusCode()
+        {
+            // Arrange
+            var httpContent = new MultipartFormDataContent
+            {
+                { new StringContent("Admin123@"), "CurrentPassword" },
+                { new StringContent("Admin123@1"), "NewPassword" },
+                { new StringContent("Admin123@1"), "ConfirmNewPassword" },
+            };
+
+            // Act
+            var response = await _httpClient.PostAsync("change-password", httpContent);
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            httpContent = new MultipartFormDataContent
+            {
+                { new StringContent("Admin123@1"), "CurrentPassword" },
+                { new StringContent("Admin123@"), "NewPassword" },
+                { new StringContent("Admin123@"), "ConfirmNewPassword" },
+            };
+            await _httpClient.PostAsync("change-password", httpContent);
         }
     }
 }

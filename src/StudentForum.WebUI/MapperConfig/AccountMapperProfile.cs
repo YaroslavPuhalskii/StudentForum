@@ -20,6 +20,8 @@ namespace StudentForum.WebUI.MapperConfig
             CreateMap<UserUpdateModelView, UserDto>();
             CreateMap<User, UserUpdateModelView>();
 
+            CreateMap<ChangePasswordModelView, ChangePasswordDto>();
+
         }
     }
 }

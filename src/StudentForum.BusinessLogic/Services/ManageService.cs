@@ -69,5 +69,18 @@ namespace StudentForum.BusinessLogic.Services
 
             return await _accountRepository.Update(user);
         }
+
+        public async Task<IdentityResult> ChangePassword(ChangePasswordDto model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var userId = GetUserId();
+            var user = await _accountRepository.GetUserById(userId);
+
+            return await _accountRepository.ChangePassword(user, model.CurrentPassword, model.NewPassword);
+        }
     }
 }

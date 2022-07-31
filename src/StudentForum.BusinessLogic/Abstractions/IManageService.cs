@@ -13,5 +13,7 @@ namespace StudentForum.BusinessLogic.Abstractions
         Task<IdentityResult> UdpatePhoto(byte[] photo);
 
         Task<IdentityResult> Update(UserDto model);
+
+        Task<IdentityResult> ChangePassword(ChangePasswordDto model);
     }
 }

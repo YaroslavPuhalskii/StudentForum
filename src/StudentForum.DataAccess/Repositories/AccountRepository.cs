@@ -57,5 +57,10 @@ namespace StudentForum.DataAccess.Repositories
         {
             return await _userManager.UpdateAsync(user);
         }
+
+        public async Task<IdentityResult> ChangePassword(User user, string currentPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+        }
     }
 }

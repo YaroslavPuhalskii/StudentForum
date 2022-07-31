@@ -12,14 +12,14 @@ namespace StudentForum.WebUI.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly IManageService _maanageService;
+        private readonly IManageService _manageService;
 
         private readonly IMapper _mapper;
 
         public ManageController(IManageService maanageService,
             IMapper mapper)
         {
-            _maanageService = maanageService;
+            _manageService = maanageService;
             _mapper = mapper;
         }
 
@@ -32,8 +32,8 @@ namespace StudentForum.WebUI.Controllers
         [HttpGet]
         public async Task<PartialViewResult> Load()
         {
-            var userId = _maanageService.GetUserId();
-            var user = await _maanageService.GetUserById(userId);
+            var userId = _manageService.GetUserId();
+            var user = await _manageService.GetUserById(userId);
 
             var profileModelView = _mapper.Map<User, ProfileModelView>(user);
 
@@ -51,7 +51,7 @@ namespace StudentForum.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _maanageService.UdpatePhoto(await modal.Photo.ConvertPhotoToBytes());
+                await _manageService.UdpatePhoto(await modal.Photo.ConvertPhotoToBytes());
 
                 return Json(new { result = true });
             }
@@ -66,8 +66,8 @@ namespace StudentForum.WebUI.Controllers
         [HttpGet]
         public async Task<PartialViewResult> Update()
         {
-            var userId = _maanageService.GetUserId();
-            var user = await _maanageService.GetUserById(userId);
+            var userId = _manageService.GetUserId();
+            var user = await _manageService.GetUserById(userId);
 
             var userUpdate = _mapper.Map<User, UserUpdateModelView>(user);
 
@@ -81,12 +81,42 @@ namespace StudentForum.WebUI.Controllers
             {
                 var userDto = _mapper.Map<UserUpdateModelView, UserDto>(model);
 
-                await _maanageService.Update(userDto);
+                await _manageService.Update(userDto);
 
                 return Json(new { result = true });
             }
 
             return Json(new
+            {
+                result = false,
+                message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))
+            });
+        }
+
+        [HttpGet("change-password")]
+        public PartialViewResult ChangePassword()
+        {
+            return PartialView();
+        }
+
+        [HttpPost("change-password")]
+        public async Task<JsonResult> ChangePassword(ChangePasswordModelView model)
+        {
+            if (ModelState.IsValid)
+            {
+                var changePassword = _mapper.Map<ChangePasswordModelView, ChangePasswordDto>(model);
+
+                var result = await _manageService.ChangePassword(changePassword);
+
+                if (result.Succeeded)
+                {
+                    return Json(new { result = true });
+                }
+
+                ModelState.AddModelError("", "Invalid credentials!");
+            }
+
+            return Json(new 
             {
                 result = false,
                 message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))

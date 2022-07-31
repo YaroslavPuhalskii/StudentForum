@@ -44,5 +44,13 @@ namespace StudentForum.IntegrationTests.ServiceTests
             Assert.ThrowsAsync<ArgumentNullException>(
                 () => _manageService.Update(null));
         }
+
+        [Test]
+        public void GivenChangePassword_TryToChangeWithIncorrectData_ShouldBeArgumentNullException()
+        {
+            // Arrange and Act
+            Assert.ThrowsAsync<ArgumentNullException>(
+                () => _manageService.ChangePassword(null));
+        }
     }
 }
