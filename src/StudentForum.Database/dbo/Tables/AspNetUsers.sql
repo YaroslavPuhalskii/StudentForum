@@ -2,6 +2,7 @@
     [Id]                   NVARCHAR (450)     NOT NULL,
     [FirstName]            NVARCHAR (MAX)     NULL,
     [LastName]             NVARCHAR (MAX)     NULL,
+    [Photo]                VARBINARY (MAX)    NULL,
     [UserName]             NVARCHAR (256)     NULL,
     [NormalizedUserName]   NVARCHAR (256)     NULL,
     [Email]                NVARCHAR (256)     NULL,
@@ -18,6 +19,8 @@
     [AccessFailedCount]    INT                NOT NULL,
     CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
+
 
 
 GO
