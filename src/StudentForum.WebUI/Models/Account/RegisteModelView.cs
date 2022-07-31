@@ -34,5 +34,11 @@ namespace StudentForum.WebUI.Models.Account
         [DataType(DataType.Password, ErrorMessage = "Enter correct data.")]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Photo is required!")]
+        [Display(Name = "Photo")]
+        public IFormFile CoverPhoto { get; set; }
+
+        public byte[] CoverPhotoBytes { get; set; }
     }
 }

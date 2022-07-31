@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentForum.BusinessLogic.Abstractions;
 using StudentForum.BusinessLogic.Models.Account;
+using StudentForum.WebUI.Helpers.Image;
 using StudentForum.WebUI.Models.Account;
 
 namespace StudentForum.WebUI.Controllers
@@ -19,17 +20,19 @@ namespace StudentForum.WebUI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("register")]
         public IActionResult Register()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisteModelView model)
         {
             if (ModelState.IsValid)
             {
+                model.CoverPhotoBytes = await model.CoverPhoto.ConvertPhotoToBytes();
+
                 var registerDto = _mapper.Map<RegisteModelView, RegisterDto>(model);
 
                 var result = await _accountService.Register(registerDto);
@@ -51,13 +54,13 @@ namespace StudentForum.WebUI.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet("login")]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModelView model)
         {
             if (ModelState.IsValid)
@@ -77,7 +80,7 @@ namespace StudentForum.WebUI.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
             await _accountService.SignOut();

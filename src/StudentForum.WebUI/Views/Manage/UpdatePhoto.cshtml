@@ -1,0 +1,64 @@
+﻿@model StudentForum.WebUI.Models.Manage.PhotoUpdateModelView
+
+<div class="modal" tabindex="-1" id="modalUpdatePhoto">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Photo update</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form method="post" asp-action="UpdatePhoto" asp-controller="Manage">
+              <label class="text-danger" id="serverError"></label>
+              <div class="form-group">
+                  <label asp-for="Photo" for="formFile" class="form-label"></label>
+                  <input asp-for="Photo" class="form-control" type="file" id="Photo">
+              </div>
+              <hr />
+              <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $("#modalUpdatePhoto").ready(function () {
+        showModal();
+    })
+
+    $("form").submit(function (e) {
+        e.preventDefault();
+
+        var fdata = new FormData();
+
+        var fileInput = $('#Photo')[0];
+        var file = fileInput.files[0];
+        fdata.append("Photo", file);
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UpdatePhoto", "Manage")' ,
+            data: fdata,
+            processData: false,
+            contentType: false
+        }).done(function(result) {
+            if (result.result) {
+                hideModal();
+                load();
+            }
+            else {
+                $("#serverError").text(result.message);
+            }
+        });
+
+    });
+
+    function showModal() {
+        $("#modalUpdatePhoto").modal('show');
+    }
+
+    function hideModal() {
+        $("#modalUpdatePhoto").modal('hide');
+    }
+</script>

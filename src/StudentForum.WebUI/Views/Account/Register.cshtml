@@ -5,7 +5,7 @@
     <hr />
     <div class="row">
         <div class="col-md-4 offset-4">
-            <form asp-action="Register">
+            <form asp-action="Register" asp-controller="Account" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="FirstName" class="control-label"></label>
@@ -28,10 +28,15 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <div class="mb-3">
                         <label asp-for="ConfirmPassword" class="control-label"></label>
                         <input asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CoverPhoto" class="control-label"></label>
+                    <div class="mb-3">
+                        <label for="img" class="btn btn-outline-primary btn-lg-5">Choose photo</label>
+                        <input asp-for="CoverPhoto" type="file" id="img" style="display:none">
                     </div>
                 </div>
                 <div class="form-group">

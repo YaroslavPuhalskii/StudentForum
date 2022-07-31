@@ -12,8 +12,8 @@
            Hello, @UserManager.GetUserName(User)!
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" asp-action="Profile" asp-controller="Manage">Profile</a></li>
             <li><a class="dropdown-item"  asp-action="Logout" asp-controller="Account">Logout</a></li>
-            <li><a class="dropdown-item" asp-action="ChangePassword" asp-controller="Account">ChangePassword</a></li>
         </ul>
     </div>
 }
