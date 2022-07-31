@@ -6,6 +6,7 @@ using StudentForum.BusinessLogic.Services;
 using StudentForum.Data.Entities.Account;
 using StudentForum.DataAccess;
 using StudentForum.WebUI.MapperConfig;
+using BLConfig = StudentForum.BusinessLogic.MapperConfig;
 
 namespace StudentForum.IntegrationTests.Extensions
 {
@@ -14,7 +15,7 @@ namespace StudentForum.IntegrationTests.Extensions
         public static IServiceCollection AddExtensions(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddAutoMapper(typeof(AccountMapperProfile).Assembly,
-                typeof(StudentForum.BusinessLogic.MapperConfig.MapperProfile).Assembly);
+                typeof(BLConfig.MapperProfile).Assembly);
             serviceCollection.AddDbContext<SFDatabaseContext>(
                 options => options.UseSqlServer(TestDb.ConnectionString));
             serviceCollection.AddIdentity<User, IdentityRole>()
@@ -30,6 +31,7 @@ namespace StudentForum.IntegrationTests.Extensions
             serviceCollection.AddServices();
 
             serviceCollection.AddTransient<AccountService>();
+            serviceCollection.AddTransient<ManageService>();
 
             return serviceCollection;
         }

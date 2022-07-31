@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,8 +23,8 @@ namespace StudentForum.IntegrationTests.ControllerTests
             _httpClient = factory.CreateClientWithTestAuth(provider.WithAdminClaims());
         }
 
-        [TestCase("Account/Register")]
-        [TestCase("Account/Login")]
+        [TestCase("register")]
+        [TestCase("login")]
         public async Task GetEndpoints_TryToReturnContent_ThenShouldBeReturnedCorrectContentType(string url)
         {
             // Act
@@ -46,7 +47,7 @@ namespace StudentForum.IntegrationTests.ControllerTests
             };
 
             // Act
-            var response = await _httpClient.PostAsync("Account/Login", httpContent);
+            var response = await _httpClient.PostAsync("login", httpContent);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Redirect, response.StatusCode);
@@ -63,7 +64,7 @@ namespace StudentForum.IntegrationTests.ControllerTests
             };
 
             // Act
-            var response = await _httpClient.PostAsync("Account/Login", httpContent);
+            var response = await _httpClient.PostAsync("login", httpContent);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -73,8 +74,11 @@ namespace StudentForum.IntegrationTests.ControllerTests
         public async Task GivenRegister_TryToRegisterUser_ThenShouldBeRedirectStatusCode()
         {
             // Arrange
+            await using var stream = File.OpenRead(@"Helpers\Images\anonymous.jpg");
+
             var httpContent = new MultipartFormDataContent
             {
+                { new StreamContent(stream), "CoverPhoto", "anonymous.jpg" },
                 { new StringContent("Petr"), "FirstName" },
                 { new StringContent("Petr"), "LastName" },
                 { new StringContent($"{Guid.NewGuid()}admin@test.com"), "Email" },
@@ -83,10 +87,33 @@ namespace StudentForum.IntegrationTests.ControllerTests
             };
 
             // Act
-            var response = await _httpClient.PostAsync("Account/Register", httpContent);
+            var response = await _httpClient.PostAsync("register", httpContent);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Redirect, response.StatusCode);
+        }
+
+        [Test]
+        public async Task GivenRegister_TryToRegisterUserWithSameEmail_ThenShouldBeOkStatusCode()
+        {
+            // Arrange
+            await using var stream = File.OpenRead(@"Helpers\Images\anonymous.jpg");
+
+            var httpContent = new MultipartFormDataContent
+            {
+                { new StreamContent(stream), "CoverPhoto", "anonymous.jpg" },
+                { new StringContent("Petr"), "FirstName" },
+                { new StringContent("Petr"), "LastName" },
+                { new StringContent($"admin@test.com"), "Email" },
+                { new StringContent("Admin123@"), "Password" },
+                { new StringContent("Admin123@"), "ConfirmPassword" },
+            };
+
+            // Act
+            var response = await _httpClient.PostAsync("register", httpContent);
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Test]
@@ -103,7 +130,7 @@ namespace StudentForum.IntegrationTests.ControllerTests
             };
 
             // Act
-            var response = await _httpClient.PostAsync("Account/Register", httpContent);
+            var response = await _httpClient.PostAsync("register", httpContent);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -123,7 +150,7 @@ namespace StudentForum.IntegrationTests.ControllerTests
             };
 
             // Act
-            var response = await _httpClient.PostAsync("Account/Register", httpContent);
+            var response = await _httpClient.PostAsync("register", httpContent);
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -141,7 +168,7 @@ namespace StudentForum.IntegrationTests.ControllerTests
             await _httpClient.PostAsync("Account/Login", httpContent);
 
             // Act
-            var response = await _httpClient.GetAsync("Account/Logout");
+            var response = await _httpClient.GetAsync("logout");
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Redirect, response.StatusCode);
