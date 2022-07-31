@@ -1,16 +1,12 @@
 ﻿#nullable disable
-namespace StudentForum.BusinessLogic.Models.Account
+namespace StudentForum.BusinessLogic.Models.Manage
 {
-    public class RegisterDto
+    public class UserDto
     {
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
         public string Email { get; set; }
-
-        public string Password { get; set; }
-
-        public byte[] Photo { get; set; }
     }
 }

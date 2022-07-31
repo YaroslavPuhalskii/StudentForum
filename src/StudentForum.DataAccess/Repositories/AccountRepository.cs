@@ -47,5 +47,15 @@ namespace StudentForum.DataAccess.Repositories
         {
             return await _userManager.AddToRoleAsync(user, role);
         }
+
+        public async Task<User> GetUserById(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
+        }
+
+        public async Task<IdentityResult> Update(User user)
+        {
+            return await _userManager.UpdateAsync(user);
+        }
     }
 }

@@ -14,5 +14,9 @@ namespace StudentForum.DataAccess.Contracts.Account
         Task<IdentityRole> FindRoleByName(string name);
 
         Task<IdentityResult> AddToRole(User user, string role);
+
+        Task<User> GetUserById(string id);
+
+        Task<IdentityResult> Update(User user);
     }
 }
