@@ -12,13 +12,5 @@ namespace StudentForum.BusinessLogic.Abstractions
         Task<SignInResult> Login(LoginDto model);
 
         Task SignOut();
-
-        string GetUserId();
-
-        Task<User> GetUserById(string id);
-
-        Task<IdentityResult> UdpatePhoto(byte[] photo);
-
-        Task<IdentityResult> Update(UserDto model);
     }
 }

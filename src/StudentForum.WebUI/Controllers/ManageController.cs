@@ -12,14 +12,14 @@ namespace StudentForum.WebUI.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly IAccountService _accountService;
+        private readonly IManageService _maanageService;
 
         private readonly IMapper _mapper;
 
-        public ManageController(IAccountService accountService,
+        public ManageController(IManageService maanageService,
             IMapper mapper)
         {
-            _accountService = accountService;
+            _maanageService = maanageService;
             _mapper = mapper;
         }
 
@@ -32,15 +32,15 @@ namespace StudentForum.WebUI.Controllers
         [HttpGet]
         public async Task<PartialViewResult> Load()
         {
-            var userId = _accountService.GetUserId();
-            var user = await _accountService.GetUserById(userId);
+            var userId = _maanageService.GetUserId();
+            var user = await _maanageService.GetUserById(userId);
 
             var profileModelView = _mapper.Map<User, ProfileModelView>(user);
 
             return PartialView(profileModelView);
         }
 
-        [HttpGet]
+        [HttpGet("update-photo")]
         public PartialViewResult UpdatePhoto()
         {
             return PartialView();
@@ -51,7 +51,7 @@ namespace StudentForum.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _accountService.UdpatePhoto(await modal.Photo.ConvertPhotoToBytes());
+                await _maanageService.UdpatePhoto(await modal.Photo.ConvertPhotoToBytes());
 
                 return Json(new { result = true });
             }
@@ -66,8 +66,8 @@ namespace StudentForum.WebUI.Controllers
         [HttpGet]
         public async Task<PartialViewResult> Update()
         {
-            var userId = _accountService.GetUserId();
-            var user = await _accountService.GetUserById(userId);
+            var userId = _maanageService.GetUserId();
+            var user = await _maanageService.GetUserById(userId);
 
             var userUpdate = _mapper.Map<User, UserUpdateModelView>(user);
 
@@ -77,27 +77,20 @@ namespace StudentForum.WebUI.Controllers
         [HttpPost]
         public async Task<JsonResult> Update(UserUpdateModelView model)
         {
-            if (!ModelState.IsValid)
-            {
-                return Json(new
-                {
-                    result = false,
-                    message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))
-                });
-            }
-
-            try
+            if (ModelState.IsValid)
             {
                 var userDto = _mapper.Map<UserUpdateModelView, UserDto>(model);
 
-                await _accountService.Update(userDto);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { result = false, message = ex.Message });
+                await _maanageService.Update(userDto);
+
+                return Json(new { result = true });
             }
 
-            return Json(new { result = true });
+            return Json(new
+            {
+                result = false,
+                message = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))
+            });
         }
     }
 }

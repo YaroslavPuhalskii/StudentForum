@@ -10,6 +10,7 @@ namespace StudentForum.BusinessLogic.Extensions
         public static void AddServices(this IServiceCollection serviceCollection)
             => serviceCollection
             .AddTransient<IAccountService, AccountService>()
+            .AddTransient<IManageService, ManageService>()
             .AddRepositories();
     }
 }
